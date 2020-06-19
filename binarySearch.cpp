@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-int linearSearch(int a[], int searchElement);
+int binarySearch(int a[], int searchElement);
 int n;
 int main()
 {
@@ -9,14 +9,14 @@ int main()
 
     int ar[n];
 
-    cout<<"Enter the elements to be inserted in the array: ";
+    cout<<"Enter the elements(in sorted order) to be inserted in the array: ";
     for(int i=0;i<n;i++){
         cin>>ar[i];
     }
     int searchElement;
     cout<<"Enter the element to be searched in the array: ";
     cin>>searchElement;
-    int i=linearSearch(ar,searchElement);
+    int i=binarySearch(ar,searchElement);
     if(i != -1)
         cout << searchElement<<" is found at position: "<<i+1<<endl;
     else
@@ -24,22 +24,28 @@ int main()
 }
 
 
-int linearSearch(int a[], int searchElement)
+int binarySearch(int a[], int searchElement)
 {
-    bool isFound;
-    for(int i=0; i<n;i++){
-        if(a[i] == searchElement){
-            return i;
-            break;
-        }
-    }
-    if(isFound != true)
-        return -1;
+   int left,mid,right;
+   left=0;
+   right=n-1;
+
+   while(left<=right){
+        mid=(left+right)/2;
+
+        if(a[mid] == searchElement)
+            return mid;
+        else if(a[mid] < searchElement)
+            left=mid+1;
+        else
+            right = mid-1;
+   }
+    return -1;
 
 }
 /*
 Time Complexity
-Average: O(n)
+Average: O(log n)
 Best: O(1)
 Worst: O(n)
 */
